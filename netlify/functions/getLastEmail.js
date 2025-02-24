@@ -35,7 +35,15 @@ exports.handler = async (event) => {
     // 🔹 Filtrar correos por asunto
     const validSubjects = [
       "Importante: Cómo actualizar tu Hogar con Netflix",
+      "Importante: Como actualizar tu Hogar con Netflix",
       "Tu código de acceso temporal de Netflix",
+      "Tu codigo de acceso temporal de Netflix",
+      "Completa tu solicitud de restablecimiento de contraseña",
+      "actualizar tu Hogar con Netflix",
+      "acceso temporal de Netflix",
+      "solicitud de restablecimiento de contraseña",
+      "Important: How to update your Home with Netflix",
+      "Your temporary Netflix access code",
       "Completa tu solicitud de restablecimiento de contraseña"
     ];
 
@@ -64,7 +72,7 @@ exports.handler = async (event) => {
         toHeader &&
         toHeader.value.toLowerCase().includes(email.toLowerCase()) &&
         validSubjects.some(subject => subjectHeader.value.includes(subject)) &&
-        (now - timestamp) <= 10 * 60 * 1000 // Aumentar a 10 minutos para pruebas
+        (now - timestamp) <= 13 * 60 * 1000 // Aumentar a 10 minutos para pruebas
       ) {
         const body = getMessageBody(message.data);
         const link = extractLink(body, validLinks);
