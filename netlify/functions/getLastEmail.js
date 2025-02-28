@@ -61,7 +61,7 @@ exports.handler = async (event) => {
         toHeader &&
         toHeader.value.toLowerCase().includes(email.toLowerCase()) &&
         disneySubjects.some(subject => subjectHeader.value.includes(subject)) &&
-        (now - timestamp) <= 13 * 60 * 1000 // 13 minutos de diferencia
+        (now - timestamp) <= 10 * 60 * 1000 // 10 minutos de diferencia
       ) {
         const body = getDisneyPlusMessageBody(message.data); // Usamos solo para Disney+
         console.log("🎬 Cuerpo del mensaje Disney+:", body);
