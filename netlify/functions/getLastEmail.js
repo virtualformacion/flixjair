@@ -34,10 +34,12 @@ exports.handler = async (event) => {
 
     // ------------ Lógica de Disney+ -----------------
     const disneySubjects = [
-      "Tu código de acceso único para Disney+" // Asunto específico de Disney+
+      "Tu código de acceso único para Disney+",
+      "amazon.com: Sign-in attempt" // Asunto específico de Disney+
     ];
 
     const disneyLinks = [
+      "https://www.primevideo.com/codigo",
       "https://www.disneyplus.com/codigo" // Enlace que podría ser válido para Disney+
     ];
 
@@ -61,7 +63,7 @@ exports.handler = async (event) => {
         toHeader &&
         toHeader.value.toLowerCase().includes(email.toLowerCase()) &&
         disneySubjects.some(subject => subjectHeader.value.includes(subject)) &&
-        (now - timestamp) <= 10 * 60 * 1000 // 10 minutos de diferencia
+        (now - timestamp) <= 13 * 60 * 1000 // 13 minutos de diferencia
       ) {
         const body = getDisneyPlusMessageBody(message.data); // Usamos solo para Disney+
         console.log("🎬 Cuerpo del mensaje Disney+:", body);
