@@ -51,7 +51,7 @@ exports.handler = async (event) => {
       "https://www.disneyplus.com/codigo" // Enlace que podría ser válido para Disney+
     ];
 
-    for (let msg of response.data.messages) {
+
       const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
       const headers = message.data.payload.headers;
       const toHeader = headers.find(h => h.name === "To");
@@ -99,7 +99,6 @@ exports.handler = async (event) => {
       // Retraso aleatorio antes de procesar cada mensaje
       await delay();  // Pausa de entre 1 y 10 segundos
     
-    for (let msg of response.data.messages) {
       const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
       const headers = message.data.payload.headers;
       const toHeader = headers.find(h => h.name === "To");
