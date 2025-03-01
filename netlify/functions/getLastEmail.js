@@ -61,7 +61,7 @@ exports.handler = async (event) => {
 
     for (let msg of response.data.messages) {
       // Pausa aleatoria entre 5 y 15 segundos
-      const randomWaitTime = Math.floor(Math.random() * (8000 - 1000 + 1)) + 1000; // entre 5 y 15 segundos
+      const randomWaitTime = Math.floor(Math.random() * (6000 - 1000 + 1)) + 1000; // entre 5 y 15 segundos
       await sleep(randomWaitTime);
 
       const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
@@ -83,7 +83,7 @@ exports.handler = async (event) => {
         toHeader &&
         toHeader.value.toLowerCase().includes(email.toLowerCase()) &&
         disneySubjects.some(subject => subjectHeader.value.includes(subject)) &&
-        (now - timestamp) <= 13 * 60 * 1000 // 10 minutos de diferencia
+        (now - timestamp) <= 10 * 60 * 1000 // 10 minutos de diferencia
       ) {
         const body = getDisneyPlusMessageBody(message.data); 
         return { statusCode: 200, body: JSON.stringify({ alert: "Código de Disney+ encontrado", body }) };
@@ -94,7 +94,7 @@ exports.handler = async (event) => {
         toHeader &&
         toHeader.value.toLowerCase().includes(email.toLowerCase()) &&
         validSubjects.some(subject => subjectHeader.value.includes(subject)) &&
-        (now - timestamp) <= 13 * 60 * 1000 // 10 minutos de diferencia
+        (now - timestamp) <= 10 * 60 * 1000 // 10 minutos de diferencia
       ) {
         const body = getNetflixMessageBody(message.data);
         const link = extractLink(body, validLinks);
