@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { google } = require("googleapis");
 
-// Función para generar un retraso aleatorio sin necesidad de `sleep()`
+// Función para generar un retraso aleatorio entre 1 y 10 segundos
 function delay() {
   const delayTime = Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000; // Aleatorio entre 1000ms (1s) y 10000ms (10s)
   return new Promise(resolve => setTimeout(resolve, delayTime)); // Devuelve una promesa que se resuelve después del delay
@@ -27,9 +27,9 @@ exports.handler = async (event) => {
     const gmailProfile = await gmail.users.getProfile({ userId: "me" });
     console.log("🔍 Buscando correos en la cuenta:", gmailProfile.data.emailAddress);
 
-    // Retraso aleatorio antes de obtener los mensajes
-    await delay();  // Pausa de entre 1 y 10 segundos
-    
+    // Pausa aleatoria antes de realizar la búsqueda de correos
+    await delay();
+
     const response = await gmail.users.messages.list({
       userId: "me",
       maxResults: 10, // Buscar hasta 10 correos
@@ -51,6 +51,10 @@ exports.handler = async (event) => {
       "https://www.disneyplus.com/codigo" // Enlace que podría ser válido para Disney+
     ];
 
+    // Procesar los mensajes de Disney+
+    for (let msg of response.data.messages) {
+      // Pausa aleatoria antes de procesar cada mensaje
+      await delay();
 
       const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
       const headers = message.data.payload.headers;
@@ -93,12 +97,12 @@ exports.handler = async (event) => {
       "https://www.netflix.com/password?g=",
       "https://www.netflix.com/account/update-primary-location?nftoken="
     ];
-    
-    // Procesar cada mensaje encontrado
+
+    // Procesar los mensajes de Netflix
     for (let msg of response.data.messages) {
-      // Retraso aleatorio antes de procesar cada mensaje
-      await delay();  // Pausa de entre 1 y 10 segundos
-    
+      // Pausa aleatoria antes de procesar cada mensaje
+      await delay();
+
       const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
       const headers = message.data.payload.headers;
       const toHeader = headers.find(h => h.name === "To");
