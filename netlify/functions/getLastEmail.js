@@ -95,17 +95,7 @@ exports.handler = async (event) => {
       "https://www.netflix.com/account/update-primary-location?nftoken="
     ];
 
-    // Función para la espera aleatoria
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    // Iterar sobre los mensajes y aplicar un tiempo de espera aleatorio entre solicitudes
     for (let msg of response.data.messages) {
-      // Pausa aleatoria entre 1 y 3 segundos (1000-3000 ms)
-      const randomWaitTime = Math.floor(Math.random() * (8000 - 1000 + 1)) + 1000;
-      await sleep(randomWaitTime); // Espera aleatoria entre solicitudes
-
       const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
       const headers = message.data.payload.headers;
       const toHeader = headers.find(h => h.name === "To");
