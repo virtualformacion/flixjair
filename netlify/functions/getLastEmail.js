@@ -53,6 +53,9 @@ exports.handler = async (event) => {
 
     // Procesar los mensajes de Disney+
     for (let msg of response.data.messages) {
+      // Pausa aleatoria antes de procesar cada mensaje
+      await delay();
+      
       const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
       const headers = message.data.payload.headers;
       const toHeader = headers.find(h => h.name === "To");
